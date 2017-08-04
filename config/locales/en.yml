@@ -1,0 +1,12 @@
+en:
+  vagrant:
+    errors:
+      vagrantfile_templated_exists: |-
+        A `Vagrantfile` already exists in this directory. Remove it before
+        running `vagrant templated init`.
+      berksfile_templated_exists: |-
+        A `Berksfile` already exists in this directory. Remove it before
+        running `vagrant templated init`.
+      vagrant_templated_option_not_found: |-
+        Option for template not available. Check templates availables
+        running `vagrant templated init --help`.

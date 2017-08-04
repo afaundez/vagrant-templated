@@ -1,0 +1,26 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# Vagrantfile generated with https://github.com/afaundez/vagrant-templated
+
+<%- if defaults[template]['require'] && defaults[template]['require']['vagrant-plugins'] -%>
+<%= defaults[template]['require']['vagrant-plugins'].to_a %>.each do |plugin_name|
+  unless Vagrant.has_plugin? plugin_name
+    raise "#{plugin_name} plugin is required. Please run `vagrant plugin install #{plugin_name}`"
+  end
+end
+<%- end -%>
+
+Vagrant.configure('2') do |config|
+  config.vm.box = 'bento/ubuntu-16.04'
+  config.omnibus.chef_version = :latest
+  config.vm.provision :chef_solo do |chef|
+    <%- defaults[template]['chef']['recipes'].each do |recipe| -%>
+    chef.add_recipe '<%= recipe %>'
+    <%- end -%>
+    <% lines = JSON.pretty_generate(defaults[template]['chef']['json']).lines %>
+    chef.json = <%= lines.shift.strip %>
+    <%- lines.each do |line| -%>
+    <%= line.rstrip %>
+    <%- end -%>
+  end
+end
