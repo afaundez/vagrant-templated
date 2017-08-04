@@ -1,0 +1,58 @@
+rails5:
+  berkself:
+    cookbooks:
+      apt: ~> 6.1.0
+      timezone-ii: ~> 0.2.0
+      ruby_rbenv: ~> 1.2.0
+      nodejs: ~> 4.0.0
+      postgresql: ~> 6.1.1
+  chef:
+    recipes:
+      - apt
+      - timezone-ii
+      - ruby_build
+      - ruby_rbenv::user
+      - nodejs
+      - postgresql::server
+    json:
+      tz: UTC
+      rbenv:
+        user_installs:
+          - user: vagrant
+            rubies:
+              - 2.4.1
+            global: 2.4.1
+            gems:
+              2.4.1:
+                - name: bundler
+      postgresql:
+        password:
+          postgres: password
+  require:
+    vagrant-plugins:
+      - vagrant-omnibus
+      - vagrant-berkshelf
+vagrant-plugin:
+  berkself:
+    cookbooks:
+      apt: ~> 6.1.0
+      ruby_rbenv: ~> 1.2.0
+  chef:
+    recipes:
+      - apt
+      - ruby_build
+      - ruby_rbenv::user
+    json:
+      rbenv:
+        user_installs:
+          - user: vagrant
+            rubies:
+              - 2.3.4
+            global: 2.3.4
+            gems:
+              2.3.4:
+                - name: bundler
+  require:
+    vagrant-plugins:
+      - vagrant-omnibus
+      - vagrant-berkshelf

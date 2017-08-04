@@ -1,0 +1,7 @@
+# Berksfile generated with https://github.com/afaundez/vagrant-templated
+
+source 'https://supermarket.chef.io'
+
+<%- defaults[template]['berkself']['cookbooks'].each do |name, version| -%>
+cookbook '<%= name %>', '<%= version %>'
+<%- end -%>
