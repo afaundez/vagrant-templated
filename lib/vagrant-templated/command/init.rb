@@ -6,29 +6,33 @@ module Vagrant
       class Init < Vagrant.plugin('2', :command)
 
         def execute
-          defaults = YAML.load_file File.join(File.dirname(File.expand_path(__FILE__)), '../templates/defaults.yml')
-          options = {}
+          root_path = File.expand_path '../../../', File.dirname(File.expand_path(__FILE__))
+          defaults = Dir.glob(File.expand_path("config/templates/*.yml", root_path)).collect do |template|
+            YAML.load_file(template)
+          end.reduce Hash.new, :merge
 
+          options = {}
           opts = OptionParser.new do |o|
             o.banner = 'Usage: vagrant templated init [options] <template>'
 
             o.separator ''
-            o.separator 'Templates availables: rails'
+            o.separator 'Templates availables:'
             o.separator ''
-            o.separator '     rails5'
-            o.separator '     vagrant-plugin'
+            defaults.keys.each do |template|
+              o.separator "     #{template}"
+            end
 
             o.separator ''
             o.separator 'Options:'
             o.separator ''
 
-            o.on('-f', '--force', 'Overwrite an existing box if it exists') do |f|
-              options[:force] = f
+            o.on('-s', '--suffix SUFFIX', String,
+                 "Output suffix for Vagrantfile and Berksfile. '-' for stdout") do |suffix|
+              options[:suffix] = suffix
             end
 
-            o.on('-s', '--suffix SUFFIX', String,
-                 "Output suffix for Vagrantfile and Bersfile. '-' for stdout") do |suffix|
-              options[:suffix] = suffix
+            o.on('-f', '--force', 'Overwrite an existing box if it exists') do |f|
+              options[:force] = f
             end
           end
 
@@ -59,8 +63,8 @@ module Vagrant
             raise Vagrant::Errors::BerksfileTemplatedExistsError if berksfile_save_path.exist?
           end
 
-          vagrantfile = ERB.new File.read(File.join(File.dirname(__FILE__), '../templates/Vagrantfile.erb')), nil, '-'
-          berksfile = ERB.new File.read(File.join(File.dirname(__FILE__), '../templates/Berksfile.erb')), nil, '-'
+          vagrantfile = ERB.new File.read(File.expand_path('config/templates/files/Vagrantfile.erb', root_path)), nil, '-'
+          berksfile = ERB.new File.read(File.expand_path('config/templates/files/Berksfile.erb', root_path)), nil, '-'
 
           contents = vagrantfile.result binding
           if vagrantfile_save_path

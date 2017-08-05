@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- templates displayed at help generated with yml information
+- refactor templates file structure: one yml per template
 
 ## [0.1.2] - 2017-08-04
 ### Added
