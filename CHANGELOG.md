@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Add basic template, only apt and tz update
 - Add private network configuration and use it at rails5 template
 
 ## [0.1.3] - 2017-08-05
