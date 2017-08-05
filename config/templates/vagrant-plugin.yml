@@ -1,4 +1,6 @@
 vagrant-plugin:
+  omnibus:
+    chef_version: latest
   berkself:
     cookbooks:
       apt: ~> 6.1.0

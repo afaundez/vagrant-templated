@@ -12,7 +12,7 @@ end
 
 Vagrant.configure('2') do |config|
   config.vm.box = 'bento/ubuntu-16.04'
-  config.omnibus.chef_version = :latest
+  config.omnibus.chef_version = '<%= defaults[template]['omnibus']['chef_version'] %>'
   config.vm.provision :chef_solo do |chef|
     <%- defaults[template]['chef']['recipes'].each do |recipe| -%>
     chef.add_recipe '<%= recipe %>'

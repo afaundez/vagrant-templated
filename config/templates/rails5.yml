@@ -1,4 +1,6 @@
 rails5:
+  omnibus:
+    chef_version: 12.21.1
   berkself:
     cookbooks:
       apt: ~> 6.1.0
