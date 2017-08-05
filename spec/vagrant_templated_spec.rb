@@ -63,7 +63,31 @@ describe Vagrant::Templated::Command::Init do
       }.to raise_error Vagrant::Errors::BerksfileTemplatedExistsError
     end
 
-    it 'should create Vagrantfile and Berksfile if both do not exist' do
+    it 'should create Vagrantfile and Berksfile if both do not exist using template base' do
+      expect{
+        described_class.new(['base'], @env).execute
+      }.to_not raise_error
+      expect(File.open(@vagrantfile).read).to include(vagrantfile_tag)
+      expect(File.open(@berksfile).read).to include(berksfile_tag)
+    end
+
+    it 'should create Vagrantfile and Berksfile if both do not exist using template vagrant-plugin' do
+      expect{
+        described_class.new(['vagrant-plugin'], @env).execute
+      }.to_not raise_error
+      expect(File.open(@vagrantfile).read).to include(vagrantfile_tag)
+      expect(File.open(@berksfile).read).to include(berksfile_tag)
+    end
+
+    it 'should create Vagrantfile and Berksfile if both do not exist using template django1.11' do
+      expect{
+        described_class.new(['django1.11'], @env).execute
+      }.to_not raise_error
+      expect(File.open(@vagrantfile).read).to include(vagrantfile_tag)
+      expect(File.open(@berksfile).read).to include(berksfile_tag)
+    end
+
+    it 'should create Vagrantfile and Berksfile if both do not exist using template rails5' do
       expect{
         described_class.new(['rails5'], @env).execute
       }.to_not raise_error
