@@ -2,6 +2,6 @@
 
 source 'https://supermarket.chef.io'
 
-<%- defaults[template]['berkself']['cookbooks'].each do |name, version| -%>
+<%- template_attributes['berkself']['cookbooks'].each do |name, version| -%>
 cookbook '<%= name %>', '<%= version %>'
 <%- end -%>

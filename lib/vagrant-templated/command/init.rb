@@ -7,7 +7,7 @@ module Vagrant
 
         def execute
           root_path = File.expand_path '../../../', File.dirname(File.expand_path(__FILE__))
-          defaults = Dir.glob(File.expand_path("config/templates/*.yml", root_path)).collect do |template|
+          templates_attributes = Dir.glob(File.expand_path("config/templates/attributes/*.yml", root_path)).collect do |template|
             YAML.load_file(template)
           end.reduce Hash.new, :merge
 
@@ -18,7 +18,7 @@ module Vagrant
             o.separator ''
             o.separator 'Templates availables:'
             o.separator ''
-            defaults.keys.each do |template|
+            templates_attributes.keys.each do |template|
               o.separator "     #{template}"
             end
 
@@ -50,7 +50,8 @@ module Vagrant
           end
 
           @env.ui.info("Detected template: #{template}", prefix: false, color: :yellow)
-          raise Vagrant::Errors::VagrantTemplatedOptionNotFound unless defaults.keys.include? template
+          raise Vagrant::Errors::VagrantTemplatedOptionNotFound unless templates_attributes.keys.include? template
+          template_attributes = templates_attributes[template]
 
           vagrantfile_save_path = nil
           berksfile_save_path = nil
