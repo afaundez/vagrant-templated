@@ -12,6 +12,12 @@ end
 
 Vagrant.configure('2') do |config|
   config.vm.box = 'bento/ubuntu-16.04'
+  <%- if template_attributes['network'] && template_attributes['network']['private_network'] -%>
+
+  # TIP: choose an IP available in your network
+  config.vm.network 'private_network', ip: '<%= template_attributes['network']['private_network']['ip'] %>'
+
+  <%- end -%>
   config.omnibus.chef_version = '<%= template_attributes['omnibus']['chef_version'] %>'
   config.vm.provision :chef_solo do |chef|
     <%- template_attributes['chef']['recipes'].each do |recipe| -%>

@@ -1,6 +1,9 @@
 rails5:
   omnibus:
     chef_version: 12.21.1
+  network:
+    private_network:
+      ip: 192.168.33.101
   berkself:
     cookbooks:
       apt: ~> 6.1.0
