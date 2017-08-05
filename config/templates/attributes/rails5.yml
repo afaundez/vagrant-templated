@@ -4,6 +4,8 @@ rails5:
   network:
     private_network:
       ip: 192.168.33.101
+      comments:
+        - "TIP: Change the IP if it causes problem"
   berkself:
     cookbooks:
       apt: ~> 6.1.0
