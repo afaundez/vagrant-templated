@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.1.4] - 2017-08-05
+### Added
+- Test all templates
+- Add comment attribute to private network
+- Add django1.11 template, with pyenv, including python 2 and 3
+- Add basic template, only apt and tz update
+- Add private network configuration and use it at rails5 template
+
 ## [0.1.3] - 2017-08-05
 ### Added
 - Refactor defaults to attributes, it's more self documented now

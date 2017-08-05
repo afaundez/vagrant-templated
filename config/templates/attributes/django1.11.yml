@@ -1,0 +1,32 @@
+django1.11:
+  omnibus:
+    chef_version: 12.21.1
+  network:
+    private_network:
+      ip: 192.168.33.101
+      comments:
+        - "TIP: Change the IP if it causes problem"
+        - "TIP: Make sure to have something like this on your settings.py:"
+        - "ALLOWED_HOSTS = ['192.168.33.101', 'localhost', '127.0.0.1']"
+  berkself:
+    cookbooks:
+      apt: ~> 6.1.3
+      timezone_iii: ~> 1.0.4
+      pyenv: ~> 0.1.4
+  chef:
+    recipes:
+      - apt
+      - timezone_iii
+      - pyenv::user
+    json:
+      timezone: UTC
+      pyenv:
+        user_installs:
+          - user: vagrant
+            pythons:
+              - 3.4.0
+              - 2.7.6
+  require:
+    vagrant-plugins:
+      - vagrant-omnibus
+      - vagrant-berkshelf
