@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.1.3] - 2017-08-05
+### Added
+- Refactor defaults to attributes, it's more self documented now
+- Move chef version to configuration files, fixing rails5 chef problem
+- Templates displayed at help generated with yml information
+- Refactor templates file structure: one yml per template
+
 ## [0.1.2] - 2017-08-04
 ### Added
 - Fix locale load
