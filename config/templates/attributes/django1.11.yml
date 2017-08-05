@@ -4,6 +4,10 @@ django1.11:
   network:
     private_network:
       ip: 192.168.33.101
+      comments:
+        - "TIP: Change the IP if it causes problem"
+        - "TIP: Make sure to have something like this on your settings.py:"
+        - "ALLOWED_HOSTS = ['192.168.33.101', 'localhost', '127.0.0.1']"
   berkself:
     cookbooks:
       apt: ~> 6.1.3
