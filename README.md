@@ -23,7 +23,12 @@ The new init action runs like this:
 vagrant templated init <template>
 ```
 
-The templates available at this moment are `rails5` and `vagrant-plugin`.
+The templates available at this moment are:
+
+- `base`: apt and timezone update
+- `vagrant-plugin`: base and ruby 2.3
+- `django1.11`: base, python 2/3 (pyenv)
+- `rails5`: base, ruby 2.4 (rbenv), node and postgresql.
 
 In both cases a Vagrantfile and a Berksfile will be generated where you executing the command.
 
@@ -36,6 +41,14 @@ After checking out the repo, run `bundle install` to install dependencies. Then,
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/afaundes/vagrant-templated. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+
+## TODO list
+
+- Refactor template management in a isolated component, making plugin more skinnier
+- Add multiple choices for some components. For example, rails5 add postgresql by default, but it could be mysql or sqlite3 (that what I have used). Maybe it would better to add everything and leave everything commented but one default.
+- Display ad hoc tips when new files are created
+- Add tips as a command
+- Refactor versions, maybe add version to the options
 
 ## License
 
