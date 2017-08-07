@@ -1,6 +1,6 @@
 rails5:
   omnibus:
-    chef_version: 12.21.1
+    chef_version: latest
   network:
     private_network:
       ip: 192.168.33.101
@@ -9,20 +9,20 @@ rails5:
   berkself:
     cookbooks:
       apt: ~> 6.1.0
-      timezone-ii: ~> 0.2.0
+      timezone_iii: ~> 1.0.4
       ruby_rbenv: ~> 1.2.0
       nodejs: ~> 4.0.0
       postgresql: ~> 6.1.1
   chef:
     recipes:
       - apt
-      - timezone-ii
+      - timezone_iii
       - ruby_build
       - ruby_rbenv::user
       - nodejs
       - postgresql::server
     json:
-      tz: UTC
+      timezone: UTC
       rbenv:
         user_installs:
           - user: vagrant

@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- Moving from timezone-ii to timezone_iii recipe
 - Add badges at readme
 - Add contributing guide
 
