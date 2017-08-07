@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.1.5] - 2017-08-07
+### Added
+- Update Vagrantfile from vagrant-templated
+- Moving from timezone-ii to timezone_iii recipe
+- Add badges at readme
+- Add contributing guide
+
 ## [0.1.4] - 2017-08-05
 ### Added
 - Test all templates

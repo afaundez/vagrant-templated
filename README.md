@@ -1,4 +1,7 @@
-# Vagrant Templated Plugin
+[![GitHub version](https://badge.fury.io/gh/afaundez%2Fvagrant-templated.svg)](https://badge.fury.io/gh/afaundez%2Fvagrant-templated)
+[![Gem Version](https://badge.fury.io/rb/vagrant-templated.svg)](https://badge.fury.io/rb/vagrant-templated)
+
+# VAGRANT TEMPLATED PLUGIN
 
 Vagrant Templated is [Vagrant](https://www.vagrantup.com/downloads.html) plugin that add a new vagrant action to start a new Project. You will be able to choose between templates and start with a project with a Vagrantfile (and Berksfile) with cookbooks and configurations.
 
