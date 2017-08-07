@@ -10,7 +10,8 @@ end
 
 Vagrant.configure('2') do |config|
   config.vm.box = 'bento/ubuntu-16.04'
-  config.omnibus.chef_version = :latest
+
+  config.omnibus.chef_version = 'latest'
   config.vm.provision :chef_solo do |chef|
     chef.add_recipe 'apt'
     chef.add_recipe 'ruby_build'
