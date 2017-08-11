@@ -6,21 +6,28 @@ module Vagrant
       class Init < Vagrant.plugin('2', :command)
 
         def execute
-          root_path = File.expand_path '../../../', File.dirname(File.expand_path(__FILE__))
-          templates_attributes = Dir.glob(File.expand_path("config/templates/attributes/*.yml", root_path)).collect do |template|
-            YAML.load_file(template)
-          end.reduce Hash.new, :merge
+          plugin_root = File.expand_path '../../../', File.dirname(File.expand_path(__FILE__))
+
+          templates_attributes = Hash.new {}
+          Dir.glob(File.expand_path("config/attributes/**/*.yml", plugin_root)).each do |attributes_path|
+            template = File.basename File.dirname(attributes_path)
+            templates_attributes[template] ||= Hash.new {}
+            version = Gem::Version.new File.basename(attributes_path, '.yml')
+            templates_attributes[template][version] = YAML.load_file(attributes_path)
+          end
 
           options = {}
           opts = OptionParser.new do |o|
-            o.banner = 'Usage: vagrant templated init [options] <template>'
+            o.banner = 'Usage: vagrant templated init [options] <template> [version]'
 
             o.separator ''
-            o.separator 'Templates availables:'
+            o.separator 'Templates and versions availables:'
             o.separator ''
-            templates_attributes.keys.each do |template|
-              o.separator "     #{template}"
+            templates_attributes.each do |template, versions|
+              o.separator "     #{template}: #{versions.keys.join(', ')}"
             end
+            o.separator ''
+            o.separator 'If no version is provided, larger version will be used.'
 
             o.separator ''
             o.separator 'Options:'
@@ -44,14 +51,17 @@ module Vagrant
           end
 
           template = argv[0]
+          @env.ui.info("Template detected: #{template}", prefix: false, color: :yellow)
+          template_attributes_versions = templates_attributes[template] or raise Vagrant::Errors::VagrantTemplatedOptionNotFound
           if argv.length == 2
-            options[:name] = argv[0]
-            template = argv[1]
+            version = Gem::Version.new(argv[1]) or raise Vagrant::Errors::VagrantTemplatedInvalidVersion
+            @env.ui.info("Version detected: #{Gem::Version.new(argv[1])}", prefix: false, color: :yellow)
+          else
+            version = template_attributes_versions.keys.max
+            @env.ui.info("No version detected, using: #{version}", prefix: false, color: :yellow)
           end
+          template_attributes = template_attributes_versions[version] or raise Vagrant::Errors::VagrantTemplatedOptionNotFound
 
-          @env.ui.info("Detected template: #{template}", prefix: false, color: :yellow)
-          raise Vagrant::Errors::VagrantTemplatedOptionNotFound unless templates_attributes.keys.include? template
-          template_attributes = templates_attributes[template]
 
           vagrantfile_save_path = nil
           berksfile_save_path = nil
@@ -64,8 +74,8 @@ module Vagrant
             raise Vagrant::Errors::BerksfileTemplatedExistsError if berksfile_save_path.exist?
           end
 
-          vagrantfile = ERB.new File.read(File.expand_path('config/templates/files/Vagrantfile.erb', root_path)), nil, '-'
-          berksfile = ERB.new File.read(File.expand_path('config/templates/files/Berksfile.erb', root_path)), nil, '-'
+          vagrantfile = ERB.new File.read(File.expand_path('config/templates/Vagrantfile.erb', plugin_root)), nil, '-'
+          berksfile = ERB.new File.read(File.expand_path('config/templates/Berksfile.erb', plugin_root)), nil, '-'
 
           contents = vagrantfile.result binding
           if vagrantfile_save_path

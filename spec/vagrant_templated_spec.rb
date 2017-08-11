@@ -42,70 +42,95 @@ describe Vagrant::Templated::Command::Init do
 
   context 'when using a valid template' do
 
+    let(:vagrantfile_header) {
+      ERB.new "# vagrant-templated vagrantfile for <%= template %> <%= version %>\n"\
+      '# check https://github.com/afaundez/vagrant-templated for more options'
+    }
+    let(:berksfile_header) {
+      ERB.new "# vagrant-templated berksfile for <%= template %> <%= version %>\n"\
+      '# check https://github.com/afaundez/vagrant-templated for more options'
+    }
+
     it 'should raise error if Vagrantfile exists' do
       FileUtils.touch @vagrantfile
       expect{
-        described_class.new(['rails5'], @env).execute
+        described_class.new(['rails'], @env).execute
       }.to raise_error Vagrant::Errors::VagrantfileTemplatedExistsError
     end
-
-    let(:vagrantfile_tag) { '# Vagrantfile generated with ' \
-      'https://github.com/afaundez/vagrant-templated'
-    }
-    let(:berksfile_tag) { '# Berksfile generated with ' \
-      'https://github.com/afaundez/vagrant-templated'
-    }
 
     it 'should raise error if Berksfile exists' do
       FileUtils.touch @berksfile
       expect{
-        described_class.new(['rails5'], @env).execute
+        described_class.new(['rails'], @env).execute
       }.to raise_error Vagrant::Errors::BerksfileTemplatedExistsError
     end
 
     it 'should create Vagrantfile and Berksfile if both do not exist using template base' do
+      template = 'base'
+      version = '1.0'
       expect{
-        described_class.new(['base'], @env).execute
+        described_class.new([template], @env).execute
       }.to_not raise_error
-      expect(File.open(@vagrantfile).read).to include(vagrantfile_tag)
-      expect(File.open(@berksfile).read).to include(berksfile_tag)
+      expect(File.open(@vagrantfile).read).to include(vagrantfile_header.result binding)
+      expect(File.open(@berksfile).read).to include(berksfile_header.result binding)
     end
 
     it 'should create Vagrantfile and Berksfile if both do not exist using template vagrant-plugin' do
+      template = 'vagrant-plugin'
+      version = '1.9'
       expect{
-        described_class.new(['vagrant-plugin'], @env).execute
+        described_class.new([template], @env).execute
       }.to_not raise_error
-      expect(File.open(@vagrantfile).read).to include(vagrantfile_tag)
-      expect(File.open(@berksfile).read).to include(berksfile_tag)
+      expect(File.open(@vagrantfile).read).to include(vagrantfile_header.result binding)
+      expect(File.open(@berksfile).read).to include(berksfile_header.result binding)
     end
 
-    it 'should create Vagrantfile and Berksfile if both do not exist using template django1.11' do
+
+    it 'should create Vagrantfile and Berksfile if both do not exist using template django' do
+      template = 'django'
+      version = '1.11'
       expect{
-        described_class.new(['django1.11'], @env).execute
+        described_class.new([template], @env).execute
       }.to_not raise_error
-      expect(File.open(@vagrantfile).read).to include(vagrantfile_tag)
-      expect(File.open(@berksfile).read).to include(berksfile_tag)
+      expect(File.open(@vagrantfile).read).to include(vagrantfile_header.result binding)
+      expect(File.open(@berksfile).read).to include(berksfile_header.result binding)
     end
 
-    it 'should create Vagrantfile and Berksfile if both do not exist using template rails5' do
+
+    it 'should create Vagrantfile and Berksfile if both do not exist using template rails' do
+      template = 'rails'
+      version = '5.1'
       expect{
-        described_class.new(['rails5'], @env).execute
+        described_class.new([template], @env).execute
       }.to_not raise_error
-      expect(File.open(@vagrantfile).read).to include(vagrantfile_tag)
-      expect(File.open(@berksfile).read).to include(berksfile_tag)
+      expect(File.open(@vagrantfile).read).to include(vagrantfile_header.result binding)
+      expect(File.open(@berksfile).read).to include(berksfile_header.result binding)
+    end
+
+
+    it 'should create Vagrantfile and Berksfile if both do not exist using template nodejs' do
+      template = 'nodejs'
+      version = '6.11'
+      expect{
+        described_class.new([template], @env).execute
+      }.to_not raise_error
+      expect(File.open(@vagrantfile).read).to include(vagrantfile_header.result binding)
+      expect(File.open(@berksfile).read).to include(berksfile_header.result binding)
     end
 
     context 'and using a suffix' do
 
       it 'should create Vagrantfile and Berksfile if both do not exist' do
+        template = 'rails'
+        version = '5.1'
         suffix = 'custom-sufix'
         expect{
-          described_class.new(['rails5', '--suffix',  suffix], @env).execute
+          described_class.new([template, '--suffix',  suffix], @env).execute
         }.to_not raise_error
         tag_vagrantfile = [@vagrantfile, suffix].join('.')
-        expect(File.open(tag_vagrantfile).read).to include(vagrantfile_tag)
+        expect(File.open(tag_vagrantfile).read).to include(vagrantfile_header.result binding)
         tag_berksfile = [@berksfile, suffix].join('.')
-        expect(File.open(tag_berksfile).read).to include(berksfile_tag)
+        expect(File.open(tag_berksfile).read).to include(berksfile_header.result binding)
       end
 
     end
@@ -113,34 +138,40 @@ describe Vagrant::Templated::Command::Init do
     context 'and forcing' do
 
       it 'should replace existing Vagrantfile' do
+        template = 'rails'
+        version = '5.1'
         FileUtils.touch File.join(@cwd, 'Vagrantfile')
-        args = ['rails5', '--force']
+        args = [template, '--force']
         expect{
           described_class.new(args, @env).execute
         }.to_not raise_error
-        expect(File.open(@vagrantfile).read).to include(vagrantfile_tag)
-        expect(File.open(@berksfile).read).to include(berksfile_tag)
+        expect(File.open(@vagrantfile).read).to include(vagrantfile_header.result binding)
+        expect(File.open(@berksfile).read).to include(berksfile_header.result binding)
       end
 
       it 'should replace existing Berksfile' do
+        template = 'rails'
+        version = '5.1'
         FileUtils.touch File.join(@cwd, 'Berksfile')
-        args = ['rails5', '--force']
+        args = [template, '--force']
         expect{
           described_class.new(args, @env).execute
         }.to_not raise_error
-        expect(File.open(@vagrantfile).read).to include(vagrantfile_tag)
-        expect(File.open(@berksfile).read).to include(berksfile_tag)
+        expect(File.open(@vagrantfile).read).to include(vagrantfile_header.result binding)
+        expect(File.open(@berksfile).read).to include(berksfile_header.result binding)
       end
 
       it 'should replace existing Vagrantfile and Berksfile' do
+        template = 'rails'
+        version = '5.1'
         FileUtils.touch File.join(@cwd, 'Vagrantfile')
         FileUtils.touch File.join(@cwd, 'Berksfile')
-        args = ['rails5', '--force']
+        args = [template, '--force']
         expect{
           described_class.new(args, @env).execute
         }.to_not raise_error
-        expect(File.open(@vagrantfile).read).to include(vagrantfile_tag)
-        expect(File.open(@berksfile).read).to include(berksfile_tag)
+        expect(File.open(@vagrantfile).read).to include(vagrantfile_header.result binding)
+        expect(File.open(@berksfile).read).to include(berksfile_header.result binding)
       end
 
     end

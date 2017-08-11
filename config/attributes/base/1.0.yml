@@ -1,0 +1,16 @@
+omnibus:
+  chef_version: 13.2.20
+berkself:
+  cookbooks:
+    apt: ~> 6.1.3
+    timezone_iii: ~> 1.0.4
+chef:
+  recipes:
+    - apt
+    - timezone_iii
+  json:
+    timezone_iii: UTC
+require:
+  vagrant-plugins:
+    - vagrant-omnibus
+    - vagrant-berkshelf

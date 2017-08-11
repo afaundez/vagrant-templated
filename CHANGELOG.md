@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## Removed
+- Vagrantfile's magic comments
+- Extra empty lines in templates
+### Changed
+- Refactor config directories
+- Lock chef version for all templates
+- Move version from template name to a new option. If version not provided, using largest version
+### Added
+- Node.js 6 template
+
 
 ## [0.1.5] - 2017-08-07
 ### Added
