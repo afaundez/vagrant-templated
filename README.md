@@ -23,24 +23,29 @@ To use the Vagranfile and Berksfile created, you will need [chefdk](https://down
 The new init action runs like this:
 
 ```shell
-vagrant templated init <template>
+vagrant templated init <template> [version]
 ```
 
 The templates available at this moment are:
 
-- `base`: apt and timezone update
-- `vagrant-plugin`: base and ruby 2.3
-- `django1.11`: base, python 2/3 (pyenv)
-- `rails5`: base, ruby 2.4 (rbenv), node and postgresql.
-- `nodejs6`: base, ruby 2.4 (rbenv), node and postgresql.
+- `base`
+  - `1.0`: apt and timezone update
+- `vagrant-plugin`:
+  - `1.9`: base and ruby 2.3
+- `django`:
+  - `1.11`: base, python 2/3 (pyenv)
+- `rails`:
+  - `5.1`: base, ruby 2.4 (rbenv), node and postgresql.
+- `nodejs`:
+  - `6.11`: base, node 6.11 (nodenv)
 
 In both cases a Vagrantfile and a Berksfile will be generated where you executing the command.
 
-Then, you just should `vagrant up` and enter the matrix.
-
 ## Development
 
-After checking out the repo, run `bundle install` to install dependencies. Then, run `bundle exec rake spec` to run the tests. Run `bundle exec vagrant templated init -h` and help will arise.
+After checking out the repo, you just should `vagrant up` and enter the matrix. Everything is at `/vagrant`.
+
+Inside the box run `bundle install` to install dependencies. Then, run `bundle exec rake spec` to run the tests. Run `bundle exec vagrant templated init -h` and help will arise.
 
 ## Contributing
 
@@ -52,7 +57,6 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/afaund
 - Add multiple choices for some components. For example, rails5 add postgresql by default, but it could be mysql or sqlite3 (that what I have used). Maybe it would better to add everything and leave everything commented but one default.
 - Display ad hoc tips when new files are created
 - Add tips as a command
-- Refactor versions, maybe add version to the options
 
 ## License
 

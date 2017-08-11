@@ -1,4 +1,5 @@
-# Vagrantfile generated with https://github.com/afaundez/vagrant-templated
+# vagrant-templated vagrantfile for <%= template %> <%= version %>
+# check https://github.com/afaundez/vagrant-templated for more options
 <%- if template_attributes['require'] && template_attributes['require']['vagrant-plugins'] -%>
 <%= template_attributes['require']['vagrant-plugins'].to_a %>.each do |plugin_name|
   unless Vagrant.has_plugin? plugin_name
