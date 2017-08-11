@@ -7,7 +7,7 @@ module Vagrant
 
         def execute
           root_path = File.expand_path '../../../', File.dirname(File.expand_path(__FILE__))
-          templates_attributes = Dir.glob(File.expand_path("config/templates/attributes/*.yml", root_path)).collect do |template|
+          templates_attributes = Dir.glob(File.expand_path("config/attributes/*.yml", root_path)).collect do |template|
             YAML.load_file(template)
           end.reduce Hash.new, :merge
 
@@ -64,8 +64,8 @@ module Vagrant
             raise Vagrant::Errors::BerksfileTemplatedExistsError if berksfile_save_path.exist?
           end
 
-          vagrantfile = ERB.new File.read(File.expand_path('config/templates/files/Vagrantfile.erb', root_path)), nil, '-'
-          berksfile = ERB.new File.read(File.expand_path('config/templates/files/Berksfile.erb', root_path)), nil, '-'
+          vagrantfile = ERB.new File.read(File.expand_path('config/templates/Vagrantfile.erb', root_path)), nil, '-'
+          berksfile = ERB.new File.read(File.expand_path('config/templates/Berksfile.erb', root_path)), nil, '-'
 
           contents = vagrantfile.result binding
           if vagrantfile_save_path
