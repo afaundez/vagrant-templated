@@ -32,6 +32,7 @@ The templates available at this moment are:
 - `vagrant-plugin`: base and ruby 2.3
 - `django1.11`: base, python 2/3 (pyenv)
 - `rails5`: base, ruby 2.4 (rbenv), node and postgresql.
+- `nodejs6`: base, ruby 2.4 (rbenv), node and postgresql.
 
 In both cases a Vagrantfile and a Berksfile will be generated where you executing the command.
 

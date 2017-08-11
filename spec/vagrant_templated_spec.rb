@@ -95,6 +95,14 @@ describe Vagrant::Templated::Command::Init do
       expect(File.open(@berksfile).read).to include(berksfile_tag)
     end
 
+    it 'should create Vagrantfile and Berksfile if both do not exist using template rails5' do
+      expect{
+        described_class.new(['nodejs6'], @env).execute
+      }.to_not raise_error
+      expect(File.open(@vagrantfile).read).to include(vagrantfile_tag)
+      expect(File.open(@berksfile).read).to include(berksfile_tag)
+    end
+
     context 'and using a suffix' do
 
       it 'should create Vagrantfile and Berksfile if both do not exist' do
