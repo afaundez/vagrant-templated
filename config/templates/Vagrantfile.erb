@@ -1,18 +1,14 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
 # Vagrantfile generated with https://github.com/afaundez/vagrant-templated
-
 <%- if template_attributes['require'] && template_attributes['require']['vagrant-plugins'] -%>
 <%= template_attributes['require']['vagrant-plugins'].to_a %>.each do |plugin_name|
   unless Vagrant.has_plugin? plugin_name
     raise "#{plugin_name} plugin is required. Please run `vagrant plugin install #{plugin_name}`"
   end
+
 end
 <%- end -%>
-
 Vagrant.configure('2') do |config|
   config.vm.box = 'bento/ubuntu-16.04'
-
   <%- if template_attributes['network'] && template_attributes['network']['private_network'] -%>
 
   <%- Array(template_attributes['network']['private_network']['comments']).each do |comment| -%>
