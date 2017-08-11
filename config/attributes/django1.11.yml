@@ -1,11 +1,11 @@
 django1.11:
   omnibus:
-    chef_version: 12.21.1
+    chef_version: 13.2.20
   network:
     private_network:
       ip: 192.168.33.101
       comments:
-        - "TIP: Change the IP if it causes problem"
+        - "TIP: the static IP must not collide with other machines on the same network"
         - "TIP: Make sure to have something like this on your settings.py:"
         - "ALLOWED_HOSTS = ['192.168.33.101', 'localhost', '127.0.0.1']"
   berkself:

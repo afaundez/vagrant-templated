@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - Refactor config directories
+- Lock chef version for all templates
 ### Added
 - Node.js 6 template
 
