@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Refactor config directories
 - Lock chef version for all templates
 - Move version from template name to a new option. If version not provided, using largest version
+- Refactor loading and accessing template attributes
+- Creating all error in vagrant templated module
 ### Added
 - Node.js 6 template
 
