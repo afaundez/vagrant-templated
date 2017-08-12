@@ -53,7 +53,6 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/afaund
 
 ## TODO list
 
-- Refactor template management in a isolated component, making plugin more skinnier
 - Add multiple choices for some components. For example, rails5 add postgresql by default, but it could be mysql or sqlite3 (that what I have used). Maybe it would better to add everything and leave everything commented but one default.
 - Display ad hoc tips when new files are created
 - Add tips as a command

@@ -55,14 +55,14 @@ describe Vagrant::Templated::Command::Init do
       FileUtils.touch @vagrantfile
       expect{
         described_class.new(['rails'], @env).execute
-      }.to raise_error Vagrant::Errors::VagrantfileTemplatedExistsError
+      }.to raise_error Vagrant::Templated::Errors::VagrantfileExistsError
     end
 
     it 'should raise error if Berksfile exists' do
       FileUtils.touch @berksfile
       expect{
         described_class.new(['rails'], @env).execute
-      }.to raise_error Vagrant::Errors::BerksfileTemplatedExistsError
+      }.to raise_error Vagrant::Templated::Errors::BerksfileExistsError
     end
 
     it 'should create Vagrantfile and Berksfile if both do not exist using template base' do
@@ -183,7 +183,7 @@ describe Vagrant::Templated::Command::Init do
     it 'should raise an error' do
       expect{
         described_class.new(['fake-template'], @env).execute
-      }.to raise_error Vagrant::Errors::VagrantTemplatedOptionNotFound
+      }.to raise_error Vagrant::Templated::Errors::TemplateNotFound
     end
 
   end
