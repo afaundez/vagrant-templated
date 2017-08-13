@@ -1,9 +1,8 @@
-[![GitHub version](https://badge.fury.io/gh/afaundez%2Fvagrant-templated.svg)](https://badge.fury.io/gh/afaundez%2Fvagrant-templated)
 [![Gem Version](https://badge.fury.io/rb/vagrant-templated.svg)](https://badge.fury.io/rb/vagrant-templated)
 
 # VAGRANT TEMPLATED PLUGIN
 
-Vagrant Templated is [Vagrant](https://www.vagrantup.com/downloads.html) plugin that add a new vagrant action to start a new Project. You will be able to choose between templates and start with a project with a Vagrantfile (and Berksfile) with cookbooks and configurations.
+Vagrant Templated is [Vagrant](https://www.vagrantup.com/downloads.html) plugin that add a new vagrant action to start a new Project. You will be able to choose between templates and start with a project with a Vagrantfile (and Berksfile) with cookbooks and configurations already configured.
 
 I started this gem because every time I start a new project, for production or just testing something, after the traditional vagrant init I had look in others projects looking for a specific configuration (for example, a Rails 5 project)
 
@@ -15,7 +14,7 @@ With vagrant:
 vagrant plugin install vagrant-templated
 ```
 
-To use the Vagranfile and Berksfile created, you will need [chefdk](https://downloads.chef.io/chefdk), [vagrant-berkshelf](https://github.com/berkshelf/vagrant-berkshelf) and  [vagrant-omnibus](https://github.com/chef/vagrant-omnibus).
+To use the Vagranfile and Berksfile created, you will need [chefdk](https://downloads.chef.io/chefdk), [vagrant-berkshelf](https://github.com/berkshelf/vagrant-berkshelf) and [vagrant-omnibus](https://github.com/chef/vagrant-omnibus).
 
 
 ## Usage
@@ -31,15 +30,15 @@ The templates available at this moment are:
 - `base`
   - `1.0`: apt and timezone update
 - `vagrant-plugin`:
-  - `1.9`: base and ruby 2.3
+  - `1.9`: base, rbenv, ruby 2.3 and bundler
 - `django`:
-  - `1.11`: base, python 2/3 (pyenv)
+  - `1.11`: base, pyenv and python 2/3
 - `rails`:
-  - `5.1`: base, ruby 2.4 (rbenv), node and postgresql.
+  - `5.1`: base, rbenv, ruby 2.4, bundler, node and postgresql
 - `nodejs`:
-  - `6.11`: base, node 6.11 (nodenv)
+  - `6.11`: base, nodenv and node 6.11
 
-In both cases a Vagrantfile and a Berksfile will be generated where you executing the command.
+In both cases a Vagrantfile and a Berksfile will be generated where you executing the command. You should adapt these files to you projects, but it should work as a starting point.
 
 ## Development
 
