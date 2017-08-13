@@ -4,8 +4,8 @@
   unless Vagrant.has_plugin? plugin_name
     raise "#{plugin_name} plugin is required. Please run `vagrant plugin install #{plugin_name}`"
   end
-
 end
+
 Vagrant.configure('2') do |config|
   config.vm.box = 'bento/ubuntu-16.04'
   config.omnibus.chef_version = '13.2.20'

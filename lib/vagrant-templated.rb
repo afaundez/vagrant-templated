@@ -11,6 +11,5 @@ require 'vagrant-templated/catalog'
 require 'vagrant-templated/command/root'
 require 'vagrant-templated/command/init'
 
-require 'erb'
 require 'i18n'
 I18n.load_path << Dir.glob(File.join(File.dirname(File.expand_path(__FILE__)), "../config/locales/*.{rb,yml}"))

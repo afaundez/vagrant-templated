@@ -118,19 +118,26 @@ describe Vagrant::Templated::Command::Init do
       expect(File.open(@berksfile).read).to include(berksfile_header.result binding)
     end
 
-    context 'and using a suffix' do
+    context 'and using and output' do
+
+      before :example do
+        @cwd = File.join @tmp, SecureRandom.urlsafe_base64
+        FileUtils.mkdir_p @cwd
+        @env = Vagrant::Environment.new cwd: @cwd
+        @output = 'output'
+        FileUtils.mkdir_p File.join(@cwd, @output)
+        @vagrantfile = File.join @cwd, @output, 'Vagrantfile'
+        @berksfile = File.join @cwd, @output, 'Berksfile'
+      end
 
       it 'should create Vagrantfile and Berksfile if both do not exist' do
         template = 'rails'
         version = '5.1'
-        suffix = 'custom-sufix'
         expect{
-          described_class.new([template, '--suffix',  suffix], @env).execute
+          described_class.new([template, '--output',  @output], @env).execute
         }.to_not raise_error
-        tag_vagrantfile = [@vagrantfile, suffix].join('.')
-        expect(File.open(tag_vagrantfile).read).to include(vagrantfile_header.result binding)
-        tag_berksfile = [@berksfile, suffix].join('.')
-        expect(File.open(tag_berksfile).read).to include(berksfile_header.result binding)
+        expect(File.open(@vagrantfile).read).to include(vagrantfile_header.result binding)
+        expect(File.open(@berksfile).read).to include(berksfile_header.result binding)
       end
 
     end

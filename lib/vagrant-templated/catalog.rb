@@ -1,10 +1,26 @@
 require 'yaml'
-require 'pathname'
+require 'erb'
 
 module Vagrant
   module Templated
     module Catalog
       class << self
+
+        def vagrantfile_for(template, version)
+          template_attributes = attributes_for template, version
+          vagrantfile_template = File.read(Catalog.root.join 'config/templates/Vagrantfile.erb')
+          ERB.new(vagrantfile_template, nil, '-').result binding
+        end
+
+        def berksfile_for(template, version)
+          template_attributes = attributes_for template, version
+          berksfile_template = File.read(Catalog.root.join 'config/templates/Berksfile.erb')
+          ERB.new(berksfile_template, nil, '-').result binding
+        end
+
+        def patch(template, version)
+          max_version_for(template)
+        end
 
         def templates
           attributes.keys
