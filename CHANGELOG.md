@@ -6,6 +6,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.2.0] - 2017-08-12
+### Added
+- Node.js 6 template
+- Cat option
+### Changed
+- Refactor config directories
+- Lock chef version for all templates
+- Move version from template name to a new option. If version not provided, using largest version
+- Refactor loading and accessing template attributes
+- Creating all error in vagrant templated module
+- Update vagrantfile and berksfile
+- Replace suffix with output option
+- Update readme
+## Removed
+- Vagrantfile's magic comments
+- Extra empty lines in templates
+
+
 ## [0.1.5] - 2017-08-07
 ### Added
 - Update Vagrantfile from vagrant-templated
