@@ -5,9 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-## Removed
-- Vagrantfile's magic comments
-- Extra empty lines in templates
+
+## [0.2.0] - 2017-08-12
+### Added
+- Node.js 6 template
+- Cat option
 ### Changed
 - Refactor config directories
 - Lock chef version for all templates
@@ -16,9 +18,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Creating all error in vagrant templated module
 - Update vagrantfile and berksfile
 - Replace suffix with output option
-### Added
-- Node.js 6 template
-- Cat option
+- Update readme
+## Removed
+- Vagrantfile's magic comments
+- Extra empty lines in templates
 
 
 ## [0.1.5] - 2017-08-07
