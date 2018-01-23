@@ -13,18 +13,18 @@ Vagrant.configure('2') do |config|
     chef.add_recipe 'apt'
     chef.add_recipe 'ruby_build'
     chef.add_recipe 'ruby_rbenv::user'
-    
+
     chef.json = {
       "rbenv": {
         "user_installs": [
           {
             "user": "vagrant",
             "rubies": [
-              "2.3.4"
+              "2.2.9"
             ],
-            "global": "2.3.4",
+            "global": "2.2.9",
             "gems": {
-              "2.3.4": [
+              "2.2.9": [
                 {
                   "name": "bundler"
                 }

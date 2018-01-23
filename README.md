@@ -35,6 +35,7 @@ The templates available at this moment are:
   - `1.11`: base, pyenv and python 2/3
 - `rails`:
   - `5.1`: base, rbenv, ruby 2.4, bundler, node and postgresql
+  - `4.2`: base, rbenv, ruby 2.2, bundler, node and postgresql
 - `nodejs`:
   - `6.11`: base, nodenv and node 6.11
 
